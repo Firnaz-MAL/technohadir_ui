@@ -30,11 +30,14 @@ class PermitCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            Text("Kegiatan: $activity",
-                style: const TextStyle(color: Colors.black54)),
+            Text(
+              name,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            Text(
+              "Kegiatan: $activity",
+              style: const TextStyle(color: Colors.black54),
+            ),
             const SizedBox(height: 8),
             Text("Alasan: $reason"),
             const SizedBox(height: 8),
@@ -49,14 +52,18 @@ class PermitCard extends StatelessWidget {
                 TextButton.icon(
                   onPressed: onReject,
                   icon: const Icon(Icons.cancel, color: Colors.red),
-                  label: const Text("Tolak",
-                      style: TextStyle(color: Colors.red)),
+                  label: const Text(
+                    "Tolak",
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
                 TextButton.icon(
                   onPressed: onApprove,
                   icon: const Icon(Icons.check_circle, color: Colors.green),
-                  label: const Text("Setujui",
-                      style: TextStyle(color: Colors.green)),
+                  label: const Text(
+                    "Setujui",
+                    style: TextStyle(color: Colors.green),
+                  ),
                 ),
               ],
             ),
@@ -84,16 +91,13 @@ class SummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Card(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              Text(
-                title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
               Text(
                 value,

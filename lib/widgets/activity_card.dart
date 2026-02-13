@@ -27,8 +27,10 @@ class ActivityCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 3,
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 12,
+        ),
         title: Text(
           title,
           style: TextStyle(
@@ -40,7 +42,7 @@ class ActivityCard extends StatelessWidget {
         subtitle: Text(
           "Jam: $time",
           style: TextStyle(
-            color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+            color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
             fontSize: 13,
           ),
         ),

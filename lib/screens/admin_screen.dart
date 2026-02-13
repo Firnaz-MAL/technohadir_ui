@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../widgets/admin_components.dart';
 
 class AdminScreen extends StatefulWidget {
-  const AdminScreen({super.key});
+  final Function(String, String) onActivityAdded;
+
+  const AdminScreen({super.key, required this.onActivityAdded});
 
   @override
   State<AdminScreen> createState() => _AdminScreenState();
@@ -28,11 +30,17 @@ class _AdminScreenState extends State<AdminScreen> {
   ];
 
   void _addActivity() {
-    if (_activityController.text.isEmpty || _timeController.text.isEmpty) return;
+    if (_activityController.text.isEmpty || _timeController.text.isEmpty) {
+      return;
+    }
+
+    widget.onActivityAdded(_activityController.text, _timeController.text);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("Kegiatan '${_activityController.text}' berhasil ditambahkan!"),
+        content: Text(
+          "Kegiatan '${_activityController.text}' berhasil ditambahkan!",
+        ),
         backgroundColor: Colors.green,
       ),
     );
@@ -61,17 +69,19 @@ class _AdminScreenState extends State<AdminScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final headerStyle = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: theme.brightness == Brightness.dark
+          ? Colors.yellow
+          : const Color(0xFF0A285F),
+    );
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text(
-          "Tambah Kegiatan Baru",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0A285F),
-          ),
-        ),
+        Text("Tambah Kegiatan Baru", style: headerStyle),
         const SizedBox(height: 10),
 
         // 🔹 Form Tambah Kegiatan
@@ -102,58 +112,34 @@ class _AdminScreenState extends State<AdminScreen> {
         ),
         const SizedBox(height: 20),
 
-        const Text(
-          "Daftar Izin Pengguna",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0A285F),
-          ),
-        ),
+        Text("Daftar Izin Pengguna", style: headerStyle),
         const SizedBox(height: 10),
 
         // 🔹 List Izin
-        ...permits.map((p) => PermitCard(
-              name: p['name'],
-              activity: p['activity'],
-              reason: p['reason'],
-              imagePath: p['imagePath'],
-              onApprove: () => _approvePermit(p['name']),
-              onReject: () => _rejectPermit(p['name']),
-            )),
+        ...permits.map(
+          (p) => PermitCard(
+            name: p['name'],
+            activity: p['activity'],
+            reason: p['reason'],
+            imagePath: p['imagePath'],
+            onApprove: () => _approvePermit(p['name']),
+            onReject: () => _rejectPermit(p['name']),
+          ),
+        ),
 
         const SizedBox(height: 20),
 
-        const Text(
-          "Laporan Absensi Singkat",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0A285F),
-          ),
-        ),
+        Text("Laporan Absensi Singkat", style: headerStyle),
         const SizedBox(height: 10),
 
         // 🔹 Ringkasan
         Row(
           children: const [
-            SummaryCard(
-              title: "Hadir",
-              value: "124",
-              color: Colors.green,
-            ),
+            SummaryCard(title: "Hadir", value: "124", color: Colors.green),
             SizedBox(width: 8),
-            SummaryCard(
-              title: "Telat",
-              value: "18",
-              color: Colors.orange,
-            ),
+            SummaryCard(title: "Telat", value: "18", color: Colors.orange),
             SizedBox(width: 8),
-            SummaryCard(
-              title: "Izin",
-              value: "9",
-              color: Colors.redAccent,
-            ),
+            SummaryCard(title: "Izin", value: "9", color: Colors.redAccent),
           ],
         ),
         const SizedBox(height: 10),

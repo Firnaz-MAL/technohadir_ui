@@ -22,9 +22,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 30),
           CircleAvatar(
             radius: 50,
-            backgroundImage:
-                const AssetImage('assets/images/profile_placeholder.png'),
+            backgroundImage: const AssetImage(
+              'assets/images/profile_placeholder.png',
+            ),
             backgroundColor: Colors.grey[300],
+            onBackgroundImageError: (e, s) {},
+            child: const Icon(Icons.person, size: 50, color: Colors.white),
           ),
           const SizedBox(height: 12),
           const Text(
@@ -36,8 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           // 🌗 Switch Tema
           Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
             elevation: 3,
             child: ListTile(
               leading: Icon(
@@ -48,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               subtitle: Text(isDark ? "Gelap" : "Terang"),
               trailing: Switch(
                 value: isDark,
-                activeColor: const Color(0xFFFFD100),
+                activeThumbColor: const Color(0xFFFFD100),
                 onChanged: (value) {
                   themeController.toggleTheme();
                 },
@@ -61,7 +65,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // 🚪 Tombol Logout
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                (route) => false,
+              );
             },
             icon: const Icon(Icons.logout),
             label: const Text("Keluar Akun"),

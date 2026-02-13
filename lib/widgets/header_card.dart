@@ -26,7 +26,11 @@ class HeaderCard extends StatelessWidget {
           CircleAvatar(
             radius: 28,
             backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/profile_placeholder.png'),
+            backgroundImage: const AssetImage(
+              'assets/images/profile_placeholder.png',
+            ),
+            onBackgroundImageError: (e, s) {},
+            child: const Icon(Icons.person, color: Color(0xFF0A285F)),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -36,9 +40,10 @@ class HeaderCard extends StatelessWidget {
                 Text(
                   userName,
                   style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   userRole,
